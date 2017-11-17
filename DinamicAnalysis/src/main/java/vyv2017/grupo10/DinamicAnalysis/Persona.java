@@ -26,6 +26,7 @@ public class Persona
 		telefono = "";
 		anioNacim = 0;
 	}
+	
 	public boolean tieneDatos ()
 	{
 		if (!nombre.equals("") && !apellidos.equals("") && !telefono.equals(""))
@@ -130,8 +131,8 @@ public class Persona
 	public int obtenerEdad ()
 	{
 		Calendar fecha = new GregorianCalendar();
-		int a�o = fecha.get(Calendar.YEAR);
-		return (a�o-anioNacim);		
+		int anio = fecha.get(Calendar.YEAR);
+		return (anio-anioNacim);		
 	}
 	
 	public int obtenerAnioNacim ()

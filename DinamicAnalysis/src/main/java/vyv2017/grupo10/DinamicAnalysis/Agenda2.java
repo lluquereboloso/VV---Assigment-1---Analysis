@@ -7,9 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import Parser.Parser;
-import Persona.Persona;
-
 
 class NodoAgenda 
 {
@@ -27,7 +24,7 @@ public class Agenda2 implements Agenda
 {
 		private NodoAgenda cab, cent;
 		private int numPersonas;
-		Agenda agenda = new Agenda2();
+		Agenda2 agenda = new Agenda2();
 		
 		public Agenda2 () 
 		{
@@ -78,7 +75,7 @@ public class Agenda2 implements Agenda
 			NodoAgenda act = ant.sig;
 		    if (agen.cab != agen.cent) 
 		    {
-		      while (act.info.nombre!=nombre)
+		      while (act.info.obtenerNombre()!=nom)
 		      {
 		    	  act=act.sig;
 		    	  ant=ant.sig;
@@ -89,9 +86,11 @@ public class Agenda2 implements Agenda
 		    }
 		    else return false;
 		}
+		
 		public Persona quitarPrimero ()
-		{
+		{ 
 			Persona p = new Persona();
+			/*
 		    if (agenda != null)
 		    {
 		      p = agen[0];
@@ -104,7 +103,9 @@ public class Agenda2 implements Agenda
 		      numPersonas--;
 		    }
 		    return p;
+		    */ return p; //provisional
 		}
+		
 		public boolean estaVacia ()
 		{
 			if (cab.sig == null)
@@ -134,8 +135,9 @@ public class Agenda2 implements Agenda
 				return 0;
 			}
 		}
+		
 		public boolean guardarAgenda () throws IOException
-		{
+		{ /*
 			FileWriter fichero = new FileWriter("archivo.txt");
 		    BufferedWriter bufferescritura = new BufferedWriter(fichero);
 		    PrintWriter output = new PrintWriter(bufferescritura);
@@ -158,6 +160,8 @@ public class Agenda2 implements Agenda
 		    
 		    output.close();
 		    return resultado;
+		    */
+			return true; //Provisional
 		}
 		
 		public boolean recuperarAgenda () throws IOException
