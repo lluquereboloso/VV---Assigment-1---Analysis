@@ -1,4 +1,4 @@
-package Persona;
+package vyv2017.grupo10.DinamicAnalysis;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -130,8 +130,8 @@ public class Persona
 	public int obtenerEdad ()
 	{
 		Calendar fecha = new GregorianCalendar();
-		int año = fecha.get(Calendar.YEAR);
-		return (año-anioNacim);		
+		int aï¿½o = fecha.get(Calendar.YEAR);
+		return (aï¿½o-anioNacim);		
 	}
 	
 	public int obtenerAnioNacim ()
