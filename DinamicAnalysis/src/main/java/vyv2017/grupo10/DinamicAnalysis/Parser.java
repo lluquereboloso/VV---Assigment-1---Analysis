@@ -94,7 +94,7 @@ public class Parser {
 		if (persona.tieneDatos()) {
 			aux2 = NOM + " " + nombre + ". " + APE + " " + apellido + ". " + DIR + " " + direccion + ". ";
 			aux2 = aux2 + POB + " " + poblacion + ". " + PRO + " " + provincia + ". " + COD + " "  + codigo + ". " ;
-			aux2 = aux2 + TFN + " "  + telefono + ". " + ANIO + " " + ANIO;
+			aux2 = aux2 + TFN + " "  + telefono + ". " + ANIO + " " + anio;
 		}
 		return aux2;
 	}
