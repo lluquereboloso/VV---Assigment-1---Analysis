@@ -24,7 +24,6 @@ public class Agenda2 implements Agenda
 {
 		private NodoAgenda cab, cent;
 		private int numPersonas;
-		Agenda2 agenda = new Agenda2();
 		
 		public Agenda2 () 
 		{
@@ -35,7 +34,7 @@ public class Agenda2 implements Agenda
 		
 		public boolean aniadirPersona (Persona p)
 		{
-			return aniadir (p,agenda);
+			return aniadir (p,this);
 		}
 		private boolean aniadir (Persona p, Agenda2 agen)
 		{
@@ -67,7 +66,7 @@ public class Agenda2 implements Agenda
 		
 		public boolean eliminarPersona (String nombre)
 		{
-			return elim (nombre,agenda);
+			return elim (nombre,this);
 		}
 		private boolean elim (String nom, Agenda2 agen)
 		{
