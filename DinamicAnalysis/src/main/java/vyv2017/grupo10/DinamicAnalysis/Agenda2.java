@@ -73,7 +73,7 @@ public class Agenda2 implements Agenda
 		{
 			NodoAgenda ant = agen.cab;
 			NodoAgenda act = ant.sig;
-		    if (agen.cab != agen.cent) 
+		    if (agen.cab.sig != agen.cent)  //Poner siguiente
 		    {
 		      while (act.info.obtenerNombre()!=nom)
 		      {

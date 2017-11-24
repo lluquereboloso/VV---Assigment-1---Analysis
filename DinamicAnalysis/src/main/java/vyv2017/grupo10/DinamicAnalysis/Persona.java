@@ -89,6 +89,12 @@ public class Persona
 		return this.apellidos;
 	}
 	
+	public String obtenerNombreCompleto()
+	{
+		String x = (this.nombre + " " + this.apellidos);
+		return x;
+	}
+	
 	public String obtenerDireccionCompleta ()
 	{
 		String x = (this.direccion + " " + this.poblacion + " " + this.provincia + " " + this.codigoPostal);
