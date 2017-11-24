@@ -23,113 +23,97 @@ class NodoAgenda
 public class Agenda2 implements Agenda 
 {
 		private NodoAgenda cab, cent;
-		private int numPersonas;
 		
-		public Agenda2 () 
-		{
+		public Agenda2 () {
 			cent = new NodoAgenda (null, null);
 			cab = new NodoAgenda (null, cent);
-			numPersonas = 0;
 		}
 		
-		public boolean aniadirPersona (Persona p)
-		{
-			return aniadir (p,this);
+		public boolean aniadirPersona (Persona p) {
+			return aniadir (p);
 		}
-		private boolean aniadir (Persona p, Agenda2 agen)
-		{
-			NodoAgenda aux = agen.cab;
-			NodoAgenda ant = agen.cab;
-			NodoAgenda act = ant.sig;
-			aux.info=p;
+		
+		private boolean aniadir (Persona p) {
+		    NodoAgenda nuevo;
+			NodoAgenda anterior = this.cab;
+			NodoAgenda actual = this.cab.sig;
 			boolean resul = false;
-		    
-		    if (agen.cab.sig==agen.cent) 
-		    {
-		    	aux.sig=agen.cent;
-		    	agen.cab.sig=aux;
-		    	resul=true;
+			
+			while(actual.info.obtenerNombreCompleto().compareTo(p.obtenerNombreCompleto()) < 0) {
+				anterior = actual;
+				actual = actual.sig;
+			}
+			
+			if (actual.info.obtenerNombreCompleto().compareTo(p.obtenerNombreCompleto()) > 0 || actual == this.cent) {
+				nuevo = new NodoAgenda(p, actual);
+				anterior.sig = nuevo;
+				resul= true;
+			}
+			else
+				resul = false;
+			
+			return resul;
+		}
+		
+		public boolean eliminarPersona (String nombre) {
+			return elim (nombre);
+		}
+		
+		private boolean elim (String nom){
+			NodoAgenda anterior = this.cab;
+			NodoAgenda actual = cab.sig;
+			boolean resul = false;
+		    while (actual.info.obtenerNombreCompleto().compareTo(nom) < 0) {
+		    		anterior = actual;
+		    		actual = actual.sig;
 		    }
-		    else{
-		    	while (act!=agen.cent) 
-		      		{
-		        		act=act.sig;
-		        		ant=ant.sig;
-		      		}
-		        numPersonas++;
-		        ant.sig=aux;
-		        aux.sig=act;
-		        resul = true;
-		        }
+		    if (actual.info.obtenerNombreCompleto().compareTo(nom) > 0 || actual == this.cent) {
+		    		resul = false;
+		    }
+		    else {
+		    		anterior.sig = actual.sig;
+		    		resul = true;
+		    }
 		    return resul;
 		}
 		
-		public boolean eliminarPersona (String nombre)
-		{
-			return elim (nombre,this);
-		}
-		private boolean elim (String nom, Agenda2 agen)
-		{
-			NodoAgenda ant = agen.cab;
-			NodoAgenda act = ant.sig;
-		    if (agen.cab.sig != agen.cent)  //Poner siguiente
-		    {
-		      while (act.info.obtenerNombre()!=nom)
-		      {
-		    	  act=act.sig;
-		    	  ant=ant.sig;
-		      }
-		      act=act.sig;
-		      ant.sig=act;
-		      return true;
-		    }
-		    else return false;
-		}
-		public Persona quitarPrimero ()
-		{
+		public Persona quitarPrimero () {
 			Persona p;
-		    if (estaVacia())
-		    {
-		    	p = null;
+		    if (estaVacia()) {
+		    		p = null;
 		    }
-		    else
-		    {
-		    	p = cab.sig.info;
-		    	cab.sig = cab.sig.sig;
-		    	numPersonas--;
+		    else {
+		    		p = cab.sig.info;
+		    		cab.sig = cab.sig.sig;
 		    }
 		    return p;
 		}
-		public boolean estaVacia ()
-		{
-			if (cab.sig == cent)
-			{
+		
+		public boolean estaVacia (){
+			if (cab.sig == cent){
 				/* Las listas con cabecera y centinela se consideran vacías cuando el siguiente elemento a
 				 * la cabecera ficticia, es el centinela de fin de lista (sin elementos útiles intermedios).
 				 */
 				return true;
 			}
-			else
-			{
+			else {
 				return false;
 			}
 		}
-		public int numeroPersonas ()
-		{
+		
+		public int numeroPersonas (){
 			NodoAgenda aux = cab;
 			int i = 0;
 			
-			while (aux.sig != cent)
-			{
+			while (aux.sig != cent){
 				i++;
 				aux = aux.sig;
 			}
 			
-			numPersonas = i;
-			return numPersonas;
+			return i;
 		}		
-		public boolean guardarAgenda ()
-		{
+		
+		public boolean guardarAgenda (){
 		    boolean resultado = false;
 		    
 		    PrintWriter output;
@@ -155,8 +139,7 @@ public class Agenda2 implements Agenda
 		    return resultado;
 		}
 		
-		public boolean recuperarAgenda ()
-		{
+		public boolean recuperarAgenda (){
 		    boolean resultado = false;
 		    
 		    BufferedReader input;
@@ -164,30 +147,25 @@ public class Agenda2 implements Agenda
 		    String cad;
 		    Persona p;
 		    
-		    try
-		    {
-		    	input = new BufferedReader(new FileReader("archivo.txt"));
+		    try {
+		    		input = new BufferedReader(new FileReader("archivo.txt"));
 				
-		    	do
-		    	{
-		    		cad = input.readLine();
+		    		do {
+		    			cad = input.readLine();
 		    		
-		    		if(cad != null)
-		    		{
-			    		pars.ponerLinea(cad);
-			    		p = pars.obtenerPersona();
-			    		if(p.tieneDatos())
-			    		{
-				    		aniadirPersona(p);
-				    		resultado = true;
-			    		}
-		    		}
+		    			if(cad != null) {
+		    				pars.ponerLinea(cad);
+		    				p = pars.obtenerPersona();
+		    				if(p.tieneDatos()){
+		    					aniadirPersona(p);
+		    					resultado = true;
+		    				}
+		    			}
 		    		
-		    	} while(cad != null);
-
-			    input.close();
-		    }
-		    catch(IOException e) { };
+		    		}while(cad != null);
+		    		
+		    		input.close();
+		    } catch(IOException e) { };
 		    
 		    return resultado;
 		}
