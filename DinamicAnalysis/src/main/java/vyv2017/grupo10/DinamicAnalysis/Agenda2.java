@@ -85,30 +85,28 @@ public class Agenda2 implements Agenda
 		    }
 		    else return false;
 		}
-		
 		public Persona quitarPrimero ()
-		{ 
-			Persona p = new Persona();
-			/*
-		    if (agenda != null)
+		{
+			Persona p;
+		    if (estaVacia())
 		    {
-		      p = agen[0];
-		      
-		      for (int j = 1; j < numPersonas; j++) 
-		      {
-		        agen[(j - 1)] = agen[j];
-		      }
-		      
-		      numPersonas--;
+		    	p = null;
+		    }
+		    else
+		    {
+		    	p = cab.sig.info;
+		    	cab.sig = cab.sig.sig;
+		    	numPersonas--;
 		    }
 		    return p;
-		    */ return p; //provisional
 		}
-		
 		public boolean estaVacia ()
 		{
-			if (cab.sig == null)
+			if (cab.sig == cent)
 			{
+				/* Las listas con cabecera y centinela se consideran vacías cuando el siguiente elemento a
+				 * la cabecera ficticia, es el centinela de fin de lista (sin elementos útiles intermedios).
+				 */
 				return true;
 			}
 			else
@@ -120,21 +118,16 @@ public class Agenda2 implements Agenda
 		{
 			NodoAgenda aux = cab;
 			int i = 0;
-			if (aux.sig != null)
+			
+			while (aux.sig != cent)
 			{
-				while (aux.sig != cent)
-				{
-					i++;
-					aux = aux.sig;
-				}
-				return i;
+				i++;
+				aux = aux.sig;
 			}
-			else
-			{
-				return 0;
-			}
-		}
-		
+			
+			numPersonas = i;
+			return numPersonas;
+		}		
 		public boolean guardarAgenda () throws IOException
 		{ /*
 			FileWriter fichero = new FileWriter("archivo.txt");
