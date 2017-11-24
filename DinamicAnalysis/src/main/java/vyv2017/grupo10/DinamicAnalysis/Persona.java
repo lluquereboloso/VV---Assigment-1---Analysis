@@ -41,91 +41,83 @@ public class Persona
 	
 	public void ponerNombre (String nombreNuevo)
 	{
-		Scanner teclado = new Scanner (System.in);
-		nombreNuevo = teclado.next();
+		this.nombre = nombreNuevo;
 	}
 	
 	public void ponerApellidos (String apellidosNuevo)
 	{
-		Scanner teclado = new Scanner (System.in);
-		apellidosNuevo = teclado.next();
+		this.apellidos = apellidosNuevo;
 	}
 	
 	public void ponerDireccion (String calle)
 	{
-		Scanner teclado = new Scanner (System.in);
-		calle = teclado.next();
+		this.direccion = calle;
 	}
 	
 	public void ponerPoblacion (String poblacionNueva)
 	{
-		Scanner teclado = new Scanner (System.in);
-		poblacionNueva = teclado.next();
+		this.poblacion = poblacionNueva;
 	}
 	
 	public void ponerProvincia (String provinciaNueva)
 	{
-		Scanner teclado = new Scanner (System.in);
-		provinciaNueva = teclado.next();
+		this.provincia = provinciaNueva;
 	}
 	
 	public void ponerCodPostal (String codPostal)
 	{
-		Scanner teclado = new Scanner (System.in);
-		codPostal = teclado.next();
+		this.codigoPostal = codPostal;
 	}
 	
 	public void ponerTelefono (String tfno)
 	{
-		Scanner teclado = new Scanner (System.in);
-		tfno = teclado.next();
+		this.telefono = tfno;
 	}
 	
 	public void ponerAnioNacim (int anio)
 	{
-		Scanner teclado = new Scanner (System.in);
-		anio = teclado.nextInt();
+		this.anioNacim = anio;
 	}
 	
 	public String obtenerNombre ()
 	{
-		return nombre;
+		return this.nombre;
 	}
 	
 	public String obtenerApellidos ()
 	{
-		return apellidos;
+		return this.apellidos;
 	}
 	
 	public String obtenerDireccionCompleta ()
 	{
-		String x = (direccion + " " + poblacion + " " + provincia + " " + codigoPostal);
+		String x = (this.direccion + " " + this.poblacion + " " + this.provincia + " " + this.codigoPostal);
 		return x;
 	}
 	
 	public String obtenerDireccion ()
 	{
-		return direccion;
+		return this.direccion;
 	}
 	
 	public String obtenerPoblacion ()
 	{
-		return poblacion;
+		return this.poblacion;
 	}
 	
 	public String obtenerProvincia ()
 	{
-		return provincia;
+		return this.provincia;
 	}
 	
 	public String obtenerCodigo ()
 	{
-		return codigoPostal;
+		return this.codigoPostal;
 	}
 	
 	public String obtenerTelefono ()
 	{
-		return telefono;
+		return this.telefono;
 	}
 	
 	public int obtenerEdad ()
@@ -137,7 +129,7 @@ public class Persona
 	
 	public int obtenerAnioNacim ()
 	{
-		return anioNacim;
+		return this.anioNacim;
 	}
 	
 	Persona copiarPersona ()
