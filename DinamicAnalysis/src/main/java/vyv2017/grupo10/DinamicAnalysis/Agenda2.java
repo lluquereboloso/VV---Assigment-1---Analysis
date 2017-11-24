@@ -128,57 +128,68 @@ public class Agenda2 implements Agenda
 			numPersonas = i;
 			return numPersonas;
 		}		
-		public boolean guardarAgenda () throws IOException
-		{ /*
-			FileWriter fichero = new FileWriter("archivo.txt");
-		    BufferedWriter bufferescritura = new BufferedWriter(fichero);
-		    PrintWriter output = new PrintWriter(bufferescritura);
-		    
-		    Parser p = new Parser();
+		public boolean guardarAgenda ()
+		{
 		    boolean resultado = false;
 		    
-		    if (agenda != null) 
-		    {
-		    	
-		      for (int i = 0; i < numPersonas; i++)
-		      {
-		        p.ponerPersona(agen [i]);
-		        String linea = p.obtenerLinea();
-		        output.println(linea);
-		        resultado = true;
-		      }
-		      
-		    }
+		    PrintWriter output;
+		    Parser pars = new Parser();
+		    NodoAgenda aux = cab;
 		    
-		    output.close();
+		    try
+		    {
+		    	output = new PrintWriter(new BufferedWriter(new FileWriter("archivo.txt")));
+				
+		    	while(aux.sig != cent)
+		    	{
+		    		aux = aux.sig;
+		    		pars.ponerPersona(aux.info);
+		    		output.println(pars.obtenerLinea());
+		    		resultado = true;
+		    	}
+
+			    output.close();
+		    }
+		    catch(IOException e) { };
+		    
 		    return resultado;
-		    */
-			return true; //Provisional
 		}
 		
-		public boolean recuperarAgenda () throws IOException
+		public boolean recuperarAgenda ()
 		{
-			 	FileReader filein = new FileReader("archivo.txt");
-			    BufferedReader bufferentrada = new BufferedReader(filein);
-			    boolean resul = false;
-			    
-			    Parser p = new Parser();
-			    String cad;
-			    if ((cad = bufferentrada.readLine()) != null)
-			    {
-			      resul = true;
-			      do
-			      {
-			        System.out.println(cad);
-			        p.ponerLinea(cad);
-			        Persona auxPersona = p.obtenerPersona();
-			        if (auxPersona.tieneDatos()) {
-			          aniadirPersona(auxPersona);
-			        }
-			      } while ((cad = bufferentrada.readLine()) != null);
-			      filein.close();
-			    }
-			    return resul;
+		    boolean resultado = false;
+		    
+		    BufferedReader input;
+		    Parser pars = new Parser();
+		    String cad;
+		    Persona p;
+		    
+		    try
+		    {
+		    	input = new BufferedReader(new FileReader("archivo.txt"));
+				
+		    	do
+		    	{
+		    		cad = input.readLine();
+		    		
+		    		if(cad != null)
+		    		{
+			    		pars.ponerLinea(cad);
+			    		p = pars.obtenerPersona();
+			    		if(p.tieneDatos())
+			    		{
+				    		aniadirPersona(p);
+				    		resultado = true;
+			    		}
+		    		}
+		    		
+		    	} while(cad != null);
+
+			    input.close();
+		    }
+		    catch(IOException e) { };
+		    
+		    return resultado;
 		}
 }
 
