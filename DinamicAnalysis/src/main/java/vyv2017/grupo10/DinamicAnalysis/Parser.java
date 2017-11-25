@@ -1,14 +1,14 @@
 package vyv2017.grupo10.DinamicAnalysis;
 
 public class Parser {
-	final static String NOM = "NOMBRE="; //7
-	final static String APE = "APELLIDOS="; //11
-	final static String DIR = "DIRECCION=";//11
-	final static String POB = "POBLACION=";//11
-	final static String PRO = "PROVINCIA=";//11
-	final static String COD = "CODIGO=";//7
-	final static String TFN = "TELEFONO=";//9
-	final static String ANIO = "ANIONACIM=";//10
+	static final String NOM = "NOMBRE="; //7
+	static final String APE = "APELLIDOS="; //11
+	static final String DIR = "DIRECCION=";//11
+	static final String POB = "POBLACION=";//11
+	static final String PRO = "PROVINCIA=";//11
+	static final String COD = "CODIGO=";//7
+	static final String TFN = "TELEFONO=";//9
+	static final String ANIO = "ANIONACIM=";//10
 	
 	private String linea;
 	private Persona persona;
@@ -34,15 +34,23 @@ public class Parser {
 		return linea;
 	}
 	private Persona crearPersona () {
-		String nombre = new String ();
-		String apellido = new String ();
-		String direccion = new String ();
-		String poblacion = new String ();
-		String provincia = new String ();
-		String codigo = new String ();
-		String telefono = new String ();
+		String nombre = "";
+		String apellido = "";
+		String direccion = "";
+		String poblacion = "";
+		String provincia = "";
+		String codigo = "";
+		String telefono = "";
 		int anio = 0;
-		int posNom,posApe,posDir,posPob, posProv,posCod,posTfno,posAnio,longitud;
+		int posNom;
+		int posApe;
+		int posDir;
+		int posPob;
+		int posProv;
+		int posCod;
+		int posTfno;
+		int posAnio;
+		int longitud;
 		boolean auxb = true;
 		Persona auxp = new Persona ();
 
