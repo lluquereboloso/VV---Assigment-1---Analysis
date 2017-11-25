@@ -28,14 +28,7 @@ public class Persona
 	
 	public boolean tieneDatos ()
 	{
-		if (!nombre.equals("") && !apellidos.equals("") && !telefono.equals(""))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (!nombre.equals("") && !apellidos.equals("") && !telefono.equals(""));
 	}
 	
 	public void ponerNombre (String nombreNuevo)
