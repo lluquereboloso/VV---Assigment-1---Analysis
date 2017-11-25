@@ -30,11 +30,7 @@ public class Agenda2 implements Agenda
 		}
 		
 		public boolean aniadirPersona (Persona p) {
-			return aniadir (p);
-		}
-		
-		private boolean aniadir (Persona p) {
-		    NodoAgenda nuevo;
+			NodoAgenda nuevo;
 			NodoAgenda anterior = this.cab;
 			NodoAgenda actual = this.cab.sig;
 			boolean resul = false;
@@ -56,18 +52,14 @@ public class Agenda2 implements Agenda
 		}
 		
 		public boolean eliminarPersona (String nombre) {
-			return elim (nombre);
-		}
-		
-		private boolean elim (String nom){
 			NodoAgenda anterior = this.cab;
 			NodoAgenda actual = cab.sig;
 			boolean resul = false;
-		    while (actual.info.obtenerNombreCompleto().compareTo(nom) < 0) {
+		    while (actual.info.obtenerNombreCompleto().compareTo(nombre) < 0) {
 		    		anterior = actual;
 		    		actual = actual.sig;
 		    }
-		    if (actual.info.obtenerNombreCompleto().compareTo(nom) > 0 || actual == this.cent) {
+		    if (actual.info.obtenerNombreCompleto().compareTo(nombre) > 0 || actual == this.cent) {
 		    		resul = false;
 		    }
 		    else {
