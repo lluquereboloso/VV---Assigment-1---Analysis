@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 class NodoAgenda 
@@ -22,7 +24,12 @@ class NodoAgenda
 	
 public class Agenda2 implements Agenda 
 {
-		private NodoAgenda cab, cent;
+		private NodoAgenda cab;
+		private NodoAgenda cent;
+
+		/* Gestor de log de errores requerido para el tratamiento de excepciones según SonarQube. */
+		private static final Logger LOGGER = Logger.getLogger( Agenda2.class.getName() );
+		private static final String EXC = "Exception!";
 		
 		public Agenda2 () {
 			cent = new NodoAgenda (null, null);
@@ -82,15 +89,10 @@ public class Agenda2 implements Agenda
 		}
 		
 		public boolean estaVacia (){
-			if (cab.sig == cent){
-				/* Las listas con cabecera y centinela se consideran vacías cuando el siguiente elemento a
-				 * la cabecera ficticia, es el centinela de fin de lista (sin elementos útiles intermedios).
-				 */
-				return true;
-			}
-			else {
-				return false;
-			}
+			/* Las listas con cabecera y centinela se consideran vacías cuando el siguiente elemento a
+			 * la cabecera ficticia, es el centinela de fin de lista (sin elementos útiles intermedios).
+			 */
+			return cab.sig == cent;
 		}
 		
 		public int numeroPersonas (){
@@ -108,7 +110,7 @@ public class Agenda2 implements Agenda
 		public boolean guardarAgenda (){
 		    boolean resultado = false;
 		    
-		    PrintWriter output;
+		    PrintWriter output = null;
 		    Parser pars = new Parser();
 		    NodoAgenda aux = cab;
 		    
@@ -123,10 +125,16 @@ public class Agenda2 implements Agenda
 		    		output.println(pars.obtenerLinea());
 		    		resultado = true;
 		    	}
-
-			    output.close();
 		    }
-		    catch(IOException e) { };
+		    catch(IOException e)
+		    {
+		    	LOGGER.log(Level.ALL, EXC);
+		    }
+		    finally
+		    {
+		    	if(output != null)
+		    		output.close();
+		    }
 		    
 		    return resultado;
 		}
@@ -134,30 +142,45 @@ public class Agenda2 implements Agenda
 		public boolean recuperarAgenda (){
 		    boolean resultado = false;
 		    
-		    BufferedReader input;
+		    BufferedReader input = null;
 		    Parser pars = new Parser();
 		    String cad;
 		    Persona p;
 		    
-		    try {
-		    		input = new BufferedReader(new FileReader("archivo.txt"));
+		    try
+		    {
+				input = new BufferedReader(new FileReader("archivo.txt"));
 				
-		    		do {
-		    			cad = input.readLine();
-		    		
-		    			if(cad != null) {
-		    				pars.ponerLinea(cad);
-		    				p = pars.obtenerPersona();
-		    				if(p.tieneDatos()){
-		    					aniadirPersona(p);
-		    					resultado = true;
-		    				}
-		    			}
-		    		
-		    		}while(cad != null);
-		    		
-		    		input.close();
-		    } catch(IOException e) { };
+				do {
+					cad = input.readLine();
+				
+					if(cad != null) {
+						pars.ponerLinea(cad);
+						p = pars.obtenerPersona();
+						if(p.tieneDatos()){
+							aniadirPersona(p);
+							resultado = true;
+						}
+					}
+				
+				}while(cad != null);
+		    }
+		    catch(IOException e)
+		    {
+		    	LOGGER.log(Level.ALL, EXC);
+		    }
+		    finally
+		    {
+		    	try
+		    	{
+		    		if(input != null)
+		    			input.close();
+			    }
+			    catch(IOException e)
+			    {
+					LOGGER.log(Level.ALL, EXC);
+			    }
+		    }
 		    
 		    return resultado;
 		}
