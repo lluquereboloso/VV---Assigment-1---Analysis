@@ -47,15 +47,21 @@ public class Agenda2 implements Agenda
 					anterior = actual;
 					actual = actual.sig;
 				}
-			}
 			
-			if (actual.info.obtenerNombreCompleto().compareTo(p.obtenerNombreCompleto()) > 0 || actual == this.cent) {
+			
+				if (actual.info.obtenerNombreCompleto().compareTo(p.obtenerNombreCompleto()) > 0 || actual == this.cent) {
+					nuevo = new NodoAgenda(p, actual);
+					anterior.sig = nuevo;
+					resul= true;
+				}
+				else
+					resul = false;
+			}
+			else {
 				nuevo = new NodoAgenda(p, actual);
 				anterior.sig = nuevo;
 				resul= true;
 			}
-			else
-				resul = false;
 			
 			return resul;
 		}
@@ -64,18 +70,24 @@ public class Agenda2 implements Agenda
 			NodoAgenda anterior = this.cab;
 			NodoAgenda actual = cab.sig;
 			boolean resul = false;
-		    while (actual.info.obtenerNombreCompleto().compareTo(nombre) < 0) {
-		    		anterior = actual;
-		    		actual = actual.sig;
-		    }
-		    if (actual.info.obtenerNombreCompleto().compareTo(nombre) > 0 || actual == this.cent) {
-		    		resul = false;
-		    }
-		    else {
-		    		anterior.sig = actual.sig;
-		    		resul = true;
-		    }
-		    return resul;
+			
+			if (actual.info != null) {
+				while (actual.info.obtenerNombreCompleto().compareTo(nombre) < 0) {
+					anterior = actual;
+					actual = actual.sig;
+				}
+				if (actual.info.obtenerNombreCompleto().compareTo(nombre) > 0 || actual == this.cent) {
+					resul = false;
+				}
+				else {
+					anterior.sig = actual.sig;
+					resul = true;
+				}
+			}
+			else 
+				resul = false;
+			
+			return resul;
 		}
 		
 		public Persona quitarPrimero () {
