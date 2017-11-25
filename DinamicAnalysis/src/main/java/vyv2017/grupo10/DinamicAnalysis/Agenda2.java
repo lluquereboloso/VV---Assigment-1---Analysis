@@ -82,15 +82,10 @@ public class Agenda2 implements Agenda
 		}
 		
 		public boolean estaVacia (){
-			if (cab.sig == cent){
-				/* Las listas con cabecera y centinela se consideran vacías cuando el siguiente elemento a
-				 * la cabecera ficticia, es el centinela de fin de lista (sin elementos útiles intermedios).
-				 */
-				return true;
-			}
-			else {
-				return false;
-			}
+			/* Las listas con cabecera y centinela se consideran vacías cuando el siguiente elemento a
+			 * la cabecera ficticia, es el centinela de fin de lista (sin elementos útiles intermedios).
+			 */
+			return cab.sig == cent;
 		}
 		
 		public int numeroPersonas (){
@@ -108,14 +103,11 @@ public class Agenda2 implements Agenda
 		public boolean guardarAgenda (){
 		    boolean resultado = false;
 		    
-		    PrintWriter output;
 		    Parser pars = new Parser();
 		    NodoAgenda aux = cab;
 		    
-		    try
+		    try(PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter("archivo.txt"))))
 		    {
-		    	output = new PrintWriter(new BufferedWriter(new FileWriter("archivo.txt")));
-				
 		    	while(aux.sig != cent)
 		    	{
 		    		aux = aux.sig;
@@ -123,10 +115,11 @@ public class Agenda2 implements Agenda
 		    		output.println(pars.obtenerLinea());
 		    		resultado = true;
 		    	}
-
-			    output.close();
 		    }
-		    catch(IOException e) { };
+		    catch(IOException e)
+		    {
+		    	System.out.println("IOException");
+		    };
 		    
 		    return resultado;
 		}
@@ -134,30 +127,30 @@ public class Agenda2 implements Agenda
 		public boolean recuperarAgenda (){
 		    boolean resultado = false;
 		    
-		    BufferedReader input;
 		    Parser pars = new Parser();
 		    String cad;
 		    Persona p;
 		    
-		    try {
-		    		input = new BufferedReader(new FileReader("archivo.txt"));
+		    try(BufferedReader input = new BufferedReader(new FileReader("archivo.txt")))
+		    {				
+				do {
+					cad = input.readLine();
 				
-		    		do {
-		    			cad = input.readLine();
-		    		
-		    			if(cad != null) {
-		    				pars.ponerLinea(cad);
-		    				p = pars.obtenerPersona();
-		    				if(p.tieneDatos()){
-		    					aniadirPersona(p);
-		    					resultado = true;
-		    				}
-		    			}
-		    		
-		    		}while(cad != null);
-		    		
-		    		input.close();
-		    } catch(IOException e) { };
+					if(cad != null) {
+						pars.ponerLinea(cad);
+						p = pars.obtenerPersona();
+						if(p.tieneDatos()){
+							aniadirPersona(p);
+							resultado = true;
+						}
+					}
+				
+				}while(cad != null);
+		    }
+		    catch(IOException e)
+		    {
+		    	System.out.println("IOException");
+		    };
 		    
 		    return resultado;
 		}
