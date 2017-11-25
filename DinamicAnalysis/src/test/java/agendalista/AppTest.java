@@ -1,4 +1,4 @@
-package vyv2017.grupo10.DinamicAnalysis;
+package agendalista;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
