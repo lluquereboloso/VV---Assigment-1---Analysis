@@ -71,11 +71,11 @@ public class Agenda2 implements Agenda
 			boolean resul = false;
 			
 			if (actual.info != null) {
-				while (actual.info.obtenerNombreCompleto().compareTo(nombre) < 0) {
+				while (actual.info != null && actual.info.obtenerNombreCompleto().compareTo(nombre) < 0) {
 					anterior = actual;
 					actual = actual.sig;
 				}
-				if (actual.info.obtenerNombreCompleto().compareTo(nombre) > 0 || actual == this.cent) {
+				if (actual == this.cent || actual.info.obtenerNombreCompleto().compareTo(nombre) > 0 ) {
 					resul = false;
 				}
 				else {
