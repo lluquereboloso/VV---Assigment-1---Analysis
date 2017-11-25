@@ -103,11 +103,14 @@ public class Agenda2 implements Agenda
 		public boolean guardarAgenda (){
 		    boolean resultado = false;
 		    
+		    PrintWriter output = null;
 		    Parser pars = new Parser();
 		    NodoAgenda aux = cab;
 		    
-		    try(PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter("archivo.txt"))))
+		    try
 		    {
+		    	output = new PrintWriter(new BufferedWriter(new FileWriter("archivo.txt")));
+				
 		    	while(aux.sig != cent)
 		    	{
 		    		aux = aux.sig;
@@ -119,6 +122,11 @@ public class Agenda2 implements Agenda
 		    catch(IOException e)
 		    {
 		    	System.out.println("IOException");
+		    }
+		    finally
+		    {
+		    	if(output != null)
+		    		output.close();
 		    };
 		    
 		    return resultado;
@@ -127,12 +135,15 @@ public class Agenda2 implements Agenda
 		public boolean recuperarAgenda (){
 		    boolean resultado = false;
 		    
+		    BufferedReader input = null;
 		    Parser pars = new Parser();
 		    String cad;
 		    Persona p;
 		    
-		    try(BufferedReader input = new BufferedReader(new FileReader("archivo.txt")))
-		    {				
+		    try
+		    {
+				input = new BufferedReader(new FileReader("archivo.txt"));
+				
 				do {
 					cad = input.readLine();
 				
@@ -150,6 +161,18 @@ public class Agenda2 implements Agenda
 		    catch(IOException e)
 		    {
 		    	System.out.println("IOException");
+		    }
+		    finally
+		    {
+		    	try
+		    	{
+		    		if(input != null)
+		    			input.close();
+			    }
+			    catch(IOException e)
+			    {
+			    	System.out.println("IOException");
+			    }
 		    };
 		    
 		    return resultado;
