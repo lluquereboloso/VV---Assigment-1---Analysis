@@ -42,9 +42,11 @@ public class Agenda2 implements Agenda
 			NodoAgenda actual = this.cab.sig;
 			boolean resul = false;
 			
-			while(actual.info.obtenerNombreCompleto().compareTo(p.obtenerNombreCompleto()) < 0) {
-				anterior = actual;
-				actual = actual.sig;
+			if (actual.info != null) {
+				while(actual.info.obtenerNombreCompleto().compareTo(p.obtenerNombreCompleto()) < 0) {
+					anterior = actual;
+					actual = actual.sig;
+				}
 			}
 			
 			if (actual.info.obtenerNombreCompleto().compareTo(p.obtenerNombreCompleto()) > 0 || actual == this.cent) {
