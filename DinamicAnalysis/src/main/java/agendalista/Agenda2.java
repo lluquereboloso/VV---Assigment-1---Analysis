@@ -37,32 +37,32 @@ public class Agenda2 implements Agenda
 		}
 		
 		public boolean aniadirPersona (Persona p) {
-			NodoAgenda nuevo;
-			NodoAgenda anterior = this.cab;
-			NodoAgenda actual = this.cab.sig;
-			boolean resul = false;
 			
-			if (actual.info != null) {
-				while(actual.info != null && actual.info.obtenerNombreCompleto().compareTo(p.obtenerNombreCompleto()) < 0) {
-					anterior = actual;
-					actual = actual.sig;
+			int result = 0;
+			
+			NodoAgenda actual = this.cab;
+			
+			while(result == 0)
+			{
+				if(actual.sig == cent)
+				{
+					actual.sig = new NodoAgenda(p, cent);
+					result = 1; // Insertado antes del centinela.
 				}
-			
-				if (actual == this.cent || actual.info.obtenerNombreCompleto().compareTo(p.obtenerNombreCompleto()) > 0) {
-					nuevo = new NodoAgenda(p, actual);
-					anterior.sig = nuevo;
-					resul= true;
+				else if(p.obtenerNombreCompleto().compareTo(actual.sig.info.obtenerNombreCompleto()) < 0)
+				{
+					actual.sig = new NodoAgenda(p, actual.sig.sig);
+					result = 1; // Insertado antes de otra persona.
+				}
+				else if(p.obtenerNombreCompleto().compareTo(actual.sig.info.obtenerNombreCompleto()) == 0)
+				{
+					result = -1; // No insertado, ya existe.
 				}
 				else
-					resul = false;
-			}
-			else {
-				nuevo = new NodoAgenda(p, actual);
-				anterior.sig = nuevo;
-				resul= true;
+					actual = actual.sig;
 			}
 			
-			return resul;
+			return result == 1;
 		}
 		
 		public boolean eliminarPersona (String nombre) {
@@ -197,5 +197,29 @@ public class Agenda2 implements Agenda
 		    
 		    return resultado;
 		}
-}
 
+		public static void main(String[] args)
+		{
+			Agenda2 a = new Agenda2();
+			
+			Persona p1 = new Persona();
+			p1.ponerNombre("Luis");
+			p1.ponerApellidos("Luque");
+			System.out.println(a.aniadirPersona(p1));
+			
+			Persona p2 = new Persona();
+			p2.ponerNombre("Rafa");
+			p2.ponerApellidos("Martin");
+			System.out.println(a.aniadirPersona(p2));
+			
+			Persona p3 = new Persona();
+			p3.ponerNombre("Pablo");
+			p3.ponerApellidos("Martin");
+			System.out.println(a.aniadirPersona(p3));
+			
+			Persona p4 = new Persona();
+			p4.ponerNombre("Alberto");
+			p4.ponerApellidos("Ortega");
+			System.out.println(a.aniadirPersona(p4));
+		}
+}
