@@ -90,14 +90,12 @@ public class Persona
 	
 	public String obtenerNombreCompleto()
 	{
-		String x = (this.nombre + " " + this.apellidos);
-		return x;
+		return (this.nombre + " " + this.apellidos);
 	}
 	
 	public String obtenerDireccionCompleta ()
 	{
-		String x = (this.direccion + " " + this.poblacion + " " + this.provincia + " " + this.codigoPostal);
-		return x;
+		return (this.direccion + " " + this.poblacion + " " + this.provincia + " " + this.codigoPostal);
 	}
 	
 	public String obtenerDireccion ()
