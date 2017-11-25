@@ -24,11 +24,12 @@ class NodoAgenda
 	
 public class Agenda2 implements Agenda 
 {
-		private NodoAgenda cab, cent;
+		private NodoAgenda cab;
+		private NodoAgenda cent;
 
 		/* Gestor de log de errores requerido para el tratamiento de excepciones según SonarQube. */
 		private static final Logger LOGGER = Logger.getLogger( Agenda2.class.getName() );
-		private static final String exc = "Exception!";
+		private static final String EXC = "Exception!";
 		
 		public Agenda2 () {
 			cent = new NodoAgenda (null, null);
@@ -127,7 +128,7 @@ public class Agenda2 implements Agenda
 		    }
 		    catch(IOException e)
 		    {
-		    	LOGGER.log(Level.ALL, exc);
+		    	LOGGER.log(Level.ALL, EXC);
 		    }
 		    finally
 		    {
@@ -166,7 +167,7 @@ public class Agenda2 implements Agenda
 		    }
 		    catch(IOException e)
 		    {
-		    	LOGGER.log(Level.ALL, exc);
+		    	LOGGER.log(Level.ALL, EXC);
 		    }
 		    finally
 		    {
@@ -177,7 +178,7 @@ public class Agenda2 implements Agenda
 			    }
 			    catch(IOException e)
 			    {
-					LOGGER.log(Level.ALL, exc);
+					LOGGER.log(Level.ALL, EXC);
 			    }
 		    }
 		    
