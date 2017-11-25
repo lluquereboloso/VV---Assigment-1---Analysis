@@ -1,4 +1,4 @@
-package vyv2017.grupo10.DinamicAnalysis;
+package agendalista;
 
 public class Parser {
 	static final String NOM = "NOMBRE="; //7
