@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 class NodoAgenda 
@@ -23,6 +25,10 @@ class NodoAgenda
 public class Agenda2 implements Agenda 
 {
 		private NodoAgenda cab, cent;
+
+		/* Gestor de log de errores requerido para el tratamiento de excepciones según SonarQube. */
+		private static final Logger LOGGER = Logger.getLogger( Agenda2.class.getName() );
+		private static final String exc = "Exception!";
 		
 		public Agenda2 () {
 			cent = new NodoAgenda (null, null);
@@ -121,13 +127,13 @@ public class Agenda2 implements Agenda
 		    }
 		    catch(IOException e)
 		    {
-		    	System.out.println("IOException");
+		    	LOGGER.log(Level.ALL, exc);
 		    }
 		    finally
 		    {
 		    	if(output != null)
 		    		output.close();
-		    };
+		    }
 		    
 		    return resultado;
 		}
@@ -160,7 +166,7 @@ public class Agenda2 implements Agenda
 		    }
 		    catch(IOException e)
 		    {
-		    	System.out.println("IOException");
+		    	LOGGER.log(Level.ALL, exc);
 		    }
 		    finally
 		    {
@@ -171,9 +177,9 @@ public class Agenda2 implements Agenda
 			    }
 			    catch(IOException e)
 			    {
-			    	System.out.println("IOException");
+					LOGGER.log(Level.ALL, exc);
 			    }
-		    };
+		    }
 		    
 		    return resultado;
 		}
