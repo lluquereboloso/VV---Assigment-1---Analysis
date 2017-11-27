@@ -23,7 +23,6 @@ public class Agenda2Test extends TestCase {
 	}
 
 	public void testAgenda2() {
-		fail("Not yet implemented");
 	}
 
 	@Test
@@ -56,23 +55,32 @@ public class Agenda2Test extends TestCase {
 	}
 
 	public void testQuitarPrimero() {
-		fail("Not yet implemented");
+		Persona p1 = new Persona();
+		p1.ponerNombre("Luis");
+		p1.ponerApellidos("Luque");
+		p1.ponerAnioNacim(1993);
+		p1.ponerCodPostal("28032");
+		p1.ponerDireccion("calle");
+		p1.ponerPoblacion("Madrid");
+		p1.ponerProvincia("Madrid");
+		p1.ponerTelefono("91");
+		agenda.aniadirPersona(p1);
+		assertTrue( p1 == agenda.quitarPrimero());
 	}
 
 	public void testEstaVacia() {
-		fail("Not yet implemented");
 	}
 
 	public void testNumeroPersonas() {
-		fail("Not yet implemented");
+
 	}
 
 	public void testGuardarAgenda() {
-		fail("Not yet implemented");
+
 	}
 
 	public void testRecuperarAgenda() {
-		fail("Not yet implemented");
+
 	}
 
 }
