@@ -3,19 +3,36 @@ package agendalista;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
+
 
 import junit.framework.TestCase;
 
+@RunWith(DataProviderRunner.class)
 public class Agenda2Test extends TestCase {
 
 	Agenda2 agenda;
-	Persona p1;
 	
 	@Before
-	protected void setUp() throws Exception {
+	public void setUp() throws Exception {
 		agenda = new Agenda2();
-		p1 = new Persona();
+	}
 
+	@After
+	public void tearDown() throws Exception {
+		agenda = null;
+	}
+
+	public void testAgenda2() {
+	}
+
+	@DataProvider
+	public static Object[][] dataProviderGeneral() {
+		Persona p1 = new Persona();
 		p1.ponerNombre("Luis");
 		p1.ponerApellidos("Luque");
 		p1.ponerAnioNacim(1993);
@@ -24,44 +41,45 @@ public class Agenda2Test extends TestCase {
 		p1.ponerPoblacion("Madrid");
 		p1.ponerProvincia("Madrid");
 		p1.ponerTelefono("91");
-	}
-
-	@After
-	protected void tearDown() throws Exception {
-		for(int i=0; i<agenda.numeroPersonas(); i++){
-			agenda.quitarPrimero();
-		}
-	}
-
-	public void testAgenda2() {
+	    return new Object[] []{
+	      {(Object)p1}
+	    };
 	}
 
 	@Test
-	public void testAniadirPersona() {
-		assertTrue(agenda.aniadirPersona(p1));
+	@UseDataProvider( "dataProviderGeneral" )
+	public void testAniadirPersona(Persona p) {
+		assertTrue(agenda.aniadirPersona(p));
 	}
 
 	@Test
-	public void testEliminarPersona() {
-		agenda.aniadirPersona(p1);
-		assertTrue(agenda.eliminarPersona(p1.obtenerNombreCompleto()));
+	@UseDataProvider( "dataProviderGeneral" )
+	public void testEliminarPersona(Persona p) {
+		agenda.aniadirPersona(p);
+		assertTrue(agenda.eliminarPersona(p.obtenerNombreCompleto()));
 	}
 
-	public void testQuitarPrimero() {
-		agenda.aniadirPersona(p1);
-		assertTrue( p1 == agenda.quitarPrimero());
+	@Test
+	@UseDataProvider( "dataProviderGeneral" )
+	public void testQuitarPrimero(Persona p) {
+		agenda.aniadirPersona(p);
+		assertTrue( p == agenda.quitarPrimero());
 	}
 
+	@Test
 	public void testEstaVacia() {
+		assertTrue(agenda.estaVacia());
 	}
 
-	public void testNumeroPersonas() {
+	@Test
+	@UseDataProvider( "dataProviderGeneral" )
+	public void testNumeroPersonas(Persona p) {
 		
 		// Test case 1
 		assertTrue(agenda.numeroPersonas() == 0);
 		
 		// Test case 2
-		agenda.aniadirPersona(p1);
+		agenda.aniadirPersona(p);
 		assertTrue(agenda.numeroPersonas() == 1);
 	}
 
