@@ -28,9 +28,7 @@ public class Agenda2Test extends TestCase {
 
 	@After
 	protected void tearDown() throws Exception {
-		for(int i=0; i<agenda.numeroPersonas(); i++){
-			agenda.quitarPrimero();
-		}
+		agenda = null;
 	}
 
 	public void testAgenda2() {
@@ -52,9 +50,12 @@ public class Agenda2Test extends TestCase {
 		assertTrue( p1 == agenda.quitarPrimero());
 	}
 
+	@Test
 	public void testEstaVacia() {
+		assertTrue(agenda.estaVacia());
 	}
 
+	@Test
 	public void testNumeroPersonas() {
 		
 		// Test case 1
