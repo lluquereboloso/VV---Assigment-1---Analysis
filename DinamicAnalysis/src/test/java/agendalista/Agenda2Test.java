@@ -1,14 +1,13 @@
 package agendalista;
 
-import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.junit.runners.Parameterized;
-//import org.junit.runners.Parameterized.Parameter;
-//import org.junit.runners.Parameterized.Parameters;
 
 import junit.framework.TestCase;
 
@@ -19,14 +18,14 @@ public class Agenda2Test extends TestCase {
 	Agenda2 agenda;
 	Persona p1;
 	Persona p2;
-	File fichero;
+	Path path = Paths.get("archivo.txt");
 	
 	@Before
 	protected void setUp() throws Exception {
 		agenda = new Agenda2();
 		p1 = new Persona();
 		p2 = new Persona();
-		fichero = new File("archivo.txt");
+		Files.createFile(path);
 		
 		p1.ponerNombre("Luis");
 		p1.ponerApellidos("Luque");
@@ -41,7 +40,7 @@ public class Agenda2Test extends TestCase {
 	@After
 	protected void tearDown() throws Exception {
 		agenda = null;
-		fichero.delete();
+		Files.delete(path);
 	}
 
 	public void testAgenda2() {
@@ -111,11 +110,8 @@ public class Agenda2Test extends TestCase {
 
 	}
 	@Test
-	public void testRecuperarAgendaPersonaNoFichero() {
-		
-		fichero.delete();
+	public void testRecuperarAgendaPersonaNoFichero() throws IOException{
 		assertFalse(agenda.recuperarAgenda());
-
 	}
 	
 }
