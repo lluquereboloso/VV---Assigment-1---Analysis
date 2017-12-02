@@ -35,6 +35,15 @@ public class Agenda2Test extends TestCase {
 		p1.ponerPoblacion("Madrid");
 		p1.ponerProvincia("Madrid");
 		p1.ponerTelefono("91");
+		
+		p2.ponerNombre("Pablo");
+		p2.ponerApellidos("Martin");
+		p2.ponerAnioNacim(1996);
+		p2.ponerCodPostal("28022");
+		p2.ponerDireccion("calle");
+		p2.ponerPoblacion("Madrid");
+		p2.ponerProvincia("Madrid");
+		p2.ponerTelefono("650321823");
 	}
 
 	@After
@@ -52,7 +61,28 @@ public class Agenda2Test extends TestCase {
 	}
 
 	@Test
-	public void testEliminarPersona() {
+	public void testEliminarPersonaListaVacia() {
+		assertFalse(agenda.eliminarPersona(p1.obtenerNombreCompleto()));
+	}
+	@Test
+	public void testEliminarPersonaNoVaciaNombreMenor() {
+		agenda.aniadirPersona(p1);
+		agenda.aniadirPersona(p2);
+		assertFalse(agenda.eliminarPersona("Maria Garcia"));
+	}
+	@Test
+	public void testEliminarPersonaUnNodoNombreDesigual() {
+		agenda.aniadirPersona(p1);
+		assertFalse(agenda.eliminarPersona(p2.obtenerNombreCompleto()));
+	}
+	@Test
+	public void testEliminarPersonaVariosNodosNombreIgualSegundo() {
+		agenda.aniadirPersona(p1);
+		agenda.aniadirPersona(p2);
+		assertTrue(agenda.eliminarPersona(p2.obtenerNombreCompleto()));
+	}
+	@Test
+	public void testEliminarPersonaNoVaciaNombreIgualPrimero() {
 		agenda.aniadirPersona(p1);
 		assertTrue(agenda.eliminarPersona(p1.obtenerNombreCompleto()));
 	}
