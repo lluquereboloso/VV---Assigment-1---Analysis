@@ -111,6 +111,7 @@ public class Agenda2Test extends TestCase {
 	}
 	@Test
 	public void testRecuperarAgendaPersonaNoFichero() throws IOException{
+		Files.delete(path);
 		assertFalse(agenda.recuperarAgenda());
 	}
 	
