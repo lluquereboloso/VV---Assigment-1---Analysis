@@ -159,7 +159,6 @@ public class Agenda2 implements Agenda
 		    Parser pars = new Parser();
 		    String cad;
 		    Persona p;
-		    
 		    try
 		    {
 				input = new BufferedReader(new FileReader("archivo.txt"));
