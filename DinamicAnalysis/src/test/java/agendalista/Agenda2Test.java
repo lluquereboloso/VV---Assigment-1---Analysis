@@ -18,6 +18,7 @@ public class Agenda2Test extends TestCase {
 	Agenda2 agenda;
 	Persona p1;
 	Persona p2;
+	Persona p3;
 	Path path = Paths.get("archivo.txt");
 	
 	@Before
@@ -25,6 +26,7 @@ public class Agenda2Test extends TestCase {
 		agenda = new Agenda2();
 		p1 = new Persona();
 		p2 = new Persona();
+		p3 = new Persona();
 		Files.createFile(path);
 		
 		p1.ponerNombre("Luis");
@@ -134,7 +136,7 @@ public class Agenda2Test extends TestCase {
 	}
 	@Test
 	public void testRecuperarAgendaPersonaVacia() {
-		agenda.aniadirPersona(p2);
+		agenda.aniadirPersona(p3);
 		agenda.guardarAgenda();
 		assertFalse(agenda.recuperarAgenda());
 
