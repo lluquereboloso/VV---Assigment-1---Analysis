@@ -74,7 +74,9 @@ public class Agenda2Test extends TestCase {
 		agenda = null;
 		Files.delete(path);
 	}
+
 	
+	// --- Constructor Agenda2() ----------------------------------
 	@Test
 	public void testAgenda2() {
 		   try {
@@ -84,7 +86,9 @@ public class Agenda2Test extends TestCase {
 			      fail(e.getMessage());
 			    }
 	}
-
+	
+	
+	// --- Método aniadirPersona() --------------------------------
 	@Test
 	public void testAniadirPersonaListaVacia() {
 		assertTrue(agenda.aniadirPersona(p1));
@@ -121,7 +125,9 @@ public class Agenda2Test extends TestCase {
 		assertTrue(agenda.aniadirPersona(p1));
 		
 	}
+
 	
+	// --- Método eliminarPersona() -------------------------------
 	@Test
 	public void testEliminarPersonaListaVacia() {
 		assertFalse(agenda.eliminarPersona(p1.obtenerNombreCompleto()));
@@ -148,8 +154,11 @@ public class Agenda2Test extends TestCase {
 		agenda.aniadirPersona(p1);
 		assertTrue(agenda.eliminarPersona(p1.obtenerNombreCompleto()));
 	}
+	
+	
+	// --- Método quitarPrimero() ---------------------------------
 	@Test
-	public void testQuitarPrimeroNoCacia() {
+	public void testQuitarPrimeroNoVacia() {
 		agenda.aniadirPersona(p1);
 		assertTrue( p1.equals(agenda.quitarPrimero()));
 	}
@@ -157,21 +166,29 @@ public class Agenda2Test extends TestCase {
 	public void testQuitarPrimeroVacia() {
 		assertFalse(p1.equals(agenda.quitarPrimero()));
 	}
+	
+	
+	// --- Método estaVacia() ---------------------------------
 	@Test
 	public void testEstaVacia() {
 		assertTrue(agenda.estaVacia());
 	}
 
+	
+	
+	// --- Método numeroPersonas() --------------------------------
 	@Test
-	public void testNumeroPersonas() {
-		
-		// Test case 1
+	public void testNumeroPersonasCero() {
 		assertTrue(agenda.numeroPersonas() == 0);
-		
-		// Test case 2
+	}
+	@Test
+	public void testNumeroPersonasUno() {
 		agenda.aniadirPersona(p1);
 		assertTrue(agenda.numeroPersonas() == 1);
 	}
+	
+	
+	// --- Método guardarAgenda() ---------------------------------
 	@Test
 	public void testGuardarAgendaNoVacia() {
 		agenda.aniadirPersona(p1);
@@ -181,6 +198,9 @@ public class Agenda2Test extends TestCase {
 	public void testGuardarAgendaVacia() {
 		assertFalse(agenda.guardarAgenda());
 	}
+	
+	
+	// --- Método recuperarAgenda() -------------------------------
 	@Test
 	public void testRecuperarAgendaNoVacia() {
 		agenda.aniadirPersona(p1);
