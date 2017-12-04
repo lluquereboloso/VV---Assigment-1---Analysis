@@ -1,6 +1,5 @@
 package agendalista;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,6 +19,7 @@ public class Agenda2Test extends TestCase {
 	Persona p2;
 	Persona p3;
 	Persona p4;
+	Persona p5;
 	Path path = Paths.get("archivo.txt");
 	
 	@Before
@@ -29,6 +29,7 @@ public class Agenda2Test extends TestCase {
 		p2 = new Persona();
 		p3 = new Persona();
 		p4 = new Persona();
+		p5 = new Persona();
 		Files.createFile(path);
 		
 		p1.ponerNombre("Luis");
@@ -57,6 +58,15 @@ public class Agenda2Test extends TestCase {
 		p4.ponerPoblacion("Madrid");
 		p4.ponerProvincia("Madrid");
 		p4.ponerTelefono("647026575");
+	
+		p5.ponerNombre("Razvan");
+		p5.ponerApellidos("Alungei");
+		p5.ponerAnioNacim(1996);
+		p5.ponerCodPostal("28804");
+		p5.ponerDireccion("casa");
+		p5.ponerPoblacion("Madrid");
+		p5.ponerProvincia("Madrid");
+		p5.ponerTelefono("624741234");
 	}
 
 	@After
@@ -64,8 +74,15 @@ public class Agenda2Test extends TestCase {
 		agenda = null;
 		Files.delete(path);
 	}
-
+	
+	@Test
 	public void testAgenda2() {
+		   try {
+			      new Agenda2();
+			    } 
+		   catch (Exception e) {
+			      fail(e.getMessage());
+			    }
 	}
 
 	@Test
@@ -77,18 +94,27 @@ public class Agenda2Test extends TestCase {
 		agenda.aniadirPersona(p1);
 		assertTrue(agenda.aniadirPersona(p2));
 	}
+	@Test
 	public void testAniadirPersonaListaNoVaciaMedio(){
 		agenda.aniadirPersona(p1);
 		agenda.aniadirPersona(p4);
 		assertTrue(agenda.aniadirPersona(p2));
 	}
+	@Test
 	public void testAniadirPersonaMismoNombre(){
 		agenda.aniadirPersona(p1);
 		agenda.aniadirPersona(p2);
 		agenda.aniadirPersona(p4);
 		assertFalse(agenda.aniadirPersona(p2));
 	}
-
+	@Test
+	public void testAniadirPersonaMedio(){
+		agenda.aniadirPersona(p1);
+		agenda.aniadirPersona(p2);
+		agenda.aniadirPersona(p4);
+		assertTrue(agenda.aniadirPersona(p5));
+	}
+	
 	@Test
 	public void testEliminarPersonaListaVacia() {
 		assertFalse(agenda.eliminarPersona(p1.obtenerNombreCompleto()));
