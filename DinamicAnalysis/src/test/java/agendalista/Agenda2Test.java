@@ -19,6 +19,7 @@ public class Agenda2Test extends TestCase {
 	Persona p1;
 	Persona p2;
 	Persona p3;
+	Persona p4;
 	Path path = Paths.get("archivo.txt");
 	
 	@Before
@@ -27,6 +28,7 @@ public class Agenda2Test extends TestCase {
 		p1 = new Persona();
 		p2 = new Persona();
 		p3 = new Persona();
+		p4 = new Persona();
 		Files.createFile(path);
 		
 		p1.ponerNombre("Luis");
@@ -46,6 +48,15 @@ public class Agenda2Test extends TestCase {
 		p2.ponerPoblacion("Madrid");
 		p2.ponerProvincia("Madrid");
 		p2.ponerTelefono("650321823");
+		
+		p4.ponerNombre("Ruben");
+		p4.ponerApellidos("Almaraz");
+		p4.ponerAnioNacim(1996);
+		p4.ponerCodPostal("28030");
+		p4.ponerDireccion("calle");
+		p4.ponerPoblacion("Madrid");
+		p4.ponerProvincia("Madrid");
+		p4.ponerTelefono("647026575");
 	}
 
 	@After
@@ -58,8 +69,24 @@ public class Agenda2Test extends TestCase {
 	}
 
 	@Test
-	public void testAniadirPersona() {
+	public void testAniadirPersonaListaVacia() {
 		assertTrue(agenda.aniadirPersona(p1));
+	}
+	@Test
+	public void testAniadirPersonaListaNoVaciaFinal(){
+		agenda.aniadirPersona(p1);
+		assertTrue(agenda.aniadirPersona(p2));
+	}
+	public void testAniadirPersonaListaNoVaciaMedio(){
+		agenda.aniadirPersona(p1);
+		agenda.aniadirPersona(p4);
+		assertTrue(agenda.aniadirPersona(p2));
+	}
+	public void testAniadirPersonaMismoNombre(){
+		agenda.aniadirPersona(p1);
+		agenda.aniadirPersona(p2);
+		agenda.aniadirPersona(p4);
+		assertFalse(agenda.aniadirPersona(p2));
 	}
 
 	@Test
