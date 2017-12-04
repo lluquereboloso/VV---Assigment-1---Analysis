@@ -114,6 +114,13 @@ public class Agenda2Test extends TestCase {
 		agenda.aniadirPersona(p4);
 		assertTrue(agenda.aniadirPersona(p5));
 	}
+	@Test
+	public void testAniadirPersonaPrincipio(){
+		agenda.aniadirPersona(p2);
+		agenda.aniadirPersona(p4);
+		assertTrue(agenda.aniadirPersona(p1));
+		
+	}
 	
 	@Test
 	public void testEliminarPersonaListaVacia() {
