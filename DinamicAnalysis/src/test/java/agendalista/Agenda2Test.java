@@ -179,12 +179,18 @@ public class Agenda2Test extends TestCase {
 	// --- Método numeroPersonas() --------------------------------
 	@Test
 	public void testNumeroPersonasCero() {
-		assertTrue(agenda.numeroPersonas() == 0);
+		assertEquals(agenda.numeroPersonas(), 0);
 	}
 	@Test
 	public void testNumeroPersonasUno() {
 		agenda.aniadirPersona(p1);
-		assertTrue(agenda.numeroPersonas() == 1);
+		assertEquals(agenda.numeroPersonas(), 1);
+	}
+	@Test
+	public void testNumeroPersonasDos() {
+		agenda.aniadirPersona(p1);
+		agenda.aniadirPersona(p2);
+		assertEquals(agenda.numeroPersonas(), 2);
 	}
 	
 	
