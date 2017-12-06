@@ -259,17 +259,35 @@ public class Agenda2Test extends TestCase {
 
 	}
 	@Test
-	public void testRecuperarAgendaVacia() {
-		agenda.guardarAgenda();
-		assertFalse(agenda.recuperarAgenda());
-
-	}
-	@Test
 	public void testRecuperarAgendaPersonaVacia() {
 		agenda.aniadirPersona(p3);
 		agenda.guardarAgenda();
 		assertFalse(agenda.recuperarAgenda());
 
 	}
-	
+	@Test
+	public void testRecuperarAgendaVacia() {
+		agenda.guardarAgenda();
+		assertFalse(agenda.recuperarAgenda());
+
+	}
+	@Test
+	public void testRecuperarAgendaException() {
+		
+		try
+		{
+			// Borrar el fichero 'archivo.txt' que se supone creado por SetUp.
+			Files.delete(path);
+			
+			// Comprobar fallo, intentando la lectura sin un fichero del que importar datos.
+			assertFalse(agenda.recuperarAgenda());
+			
+			// Restituir el fichero 'archivo.txt' como lo dejó el SetUp.
+			Files.createFile(path);
+		}
+		catch(IOException e)
+		{
+	    	LOGGER.log(Level.ALL, EXC);
+		}
+	}
 }
