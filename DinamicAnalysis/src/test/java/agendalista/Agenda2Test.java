@@ -13,6 +13,8 @@ import junit.framework.TestCase;
 
 public class Agenda2Test extends TestCase {
 
+	private static final String DIRECCION = "calle";
+	private static final String PROVINCIA = "Madrid";
 
 	Agenda2 agenda;
 	Persona p1;
@@ -36,36 +38,36 @@ public class Agenda2Test extends TestCase {
 		p1.ponerApellidos("Luque");
 		p1.ponerAnioNacim(1993);
 		p1.ponerCodPostal("28032");
-		p1.ponerDireccion("calle");
-		p1.ponerPoblacion("Madrid");
-		p1.ponerProvincia("Madrid");
+		p1.ponerDireccion(DIRECCION);
+		p1.ponerPoblacion(PROVINCIA);
+		p1.ponerProvincia(PROVINCIA);
 		p1.ponerTelefono("91");
 		
 		p2.ponerNombre("Pablo");
 		p2.ponerApellidos("Martin");
 		p2.ponerAnioNacim(1996);
 		p2.ponerCodPostal("28022");
-		p2.ponerDireccion("calle");
-		p2.ponerPoblacion("Madrid");
-		p2.ponerProvincia("Madrid");
+		p2.ponerDireccion(DIRECCION);
+		p2.ponerPoblacion(PROVINCIA);
+		p2.ponerProvincia(PROVINCIA);
 		p2.ponerTelefono("650321823");
 		
 		p4.ponerNombre("Ruben");
 		p4.ponerApellidos("Almaraz");
 		p4.ponerAnioNacim(1996);
 		p4.ponerCodPostal("28030");
-		p4.ponerDireccion("calle");
-		p4.ponerPoblacion("Madrid");
-		p4.ponerProvincia("Madrid");
+		p4.ponerDireccion(DIRECCION);
+		p4.ponerPoblacion(PROVINCIA);
+		p4.ponerProvincia(PROVINCIA);
 		p4.ponerTelefono("647026575");
 	
 		p5.ponerNombre("Razvan");
 		p5.ponerApellidos("Alungei");
 		p5.ponerAnioNacim(1996);
 		p5.ponerCodPostal("28804");
-		p5.ponerDireccion("casa");
-		p5.ponerPoblacion("Madrid");
-		p5.ponerProvincia("Madrid");
+		p5.ponerDireccion(DIRECCION);
+		p5.ponerPoblacion(PROVINCIA);
+		p5.ponerProvincia(PROVINCIA);
 		p5.ponerTelefono("624741234");
 	}
 
@@ -173,7 +175,12 @@ public class Agenda2Test extends TestCase {
 	public void testEstaVacia() {
 		assertTrue(agenda.estaVacia());
 	}
-
+	
+	@Test
+	public void testNoEstaVacia() {
+		agenda.aniadirPersona(p1);
+		assertFalse(agenda.estaVacia());
+	}
 	
 	
 	// --- Método numeroPersonas() --------------------------------
