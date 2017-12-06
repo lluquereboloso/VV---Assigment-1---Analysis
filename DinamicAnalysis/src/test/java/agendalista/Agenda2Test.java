@@ -1,8 +1,12 @@
 package agendalista;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.Before;
@@ -23,6 +27,10 @@ public class Agenda2Test extends TestCase {
 	Persona p4;
 	Persona p5;
 	Path path = Paths.get("archivo.txt");
+	
+	/* Gestor de log de errores requerido para el tratamiento de excepciones según SonarQube. */
+	private static final Logger LOGGER = Logger.getLogger( Agenda2.class.getName() );
+	private static final String EXC = "Exception!";
 	
 	@Before
 	protected void setUp() throws Exception {
@@ -210,6 +218,34 @@ public class Agenda2Test extends TestCase {
 	@Test
 	public void testGuardarAgendaVacia() {
 		assertFalse(agenda.guardarAgenda());
+	}
+	@Test
+	public void testGuardarAgendaException() {
+
+		try
+		{
+			// Borrar el fichero 'archivo.txt' que se supone creado por SetUp.
+			Files.delete(path);
+			
+			// Crear un directorio llamado 'archivo.txt', bloqueando ese nombre para su uso como fichero.
+			// Cuando 'guardarAgenda' trate de crear un fichero de escritura con el mismo nombre, fallará.
+			File directory = new File("archivo.txt");
+			directory.mkdir();
+			
+			// Comprobar fallo, con una agenda que disponía de contenidos y debería haberse escrito bien.
+			agenda.aniadirPersona(p1);
+			assertFalse(agenda.guardarAgenda());
+			
+			// Borrar directorio 'archivo.txt' usado para la prueba.
+			directory.delete();
+			
+			// Restituir el fichero 'archivo.txt' como lo dejó el SetUp.
+			Files.createFile(path);
+		}
+		catch(IOException e)
+		{
+	    	LOGGER.log(Level.ALL, EXC);
+		}
 	}
 	
 	
