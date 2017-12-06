@@ -237,7 +237,8 @@ public class Agenda2Test extends TestCase {
 			assertFalse(agenda.guardarAgenda());
 			
 			// Borrar directorio 'archivo.txt' usado para la prueba.
-			directory.delete();
+			if(directory.delete())
+		    	LOGGER.log(Level.ALL, "Directory deleted.");
 			
 			// Restituir el fichero 'archivo.txt' como lo dejó el SetUp.
 			Files.createFile(path);
